@@ -47,7 +47,7 @@ const Mutation = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!title || !body) {
+        if (!title.trim() || !body.trim()) {
             alert("Both title and body are required!");
             return;
         }

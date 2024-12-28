@@ -1,11 +1,6 @@
 {
   "posts": [
     {
-      "id": "4",
-      "title": "Exploring CSS Grid Layout",
-      "body": "This post covers how to design responsive layouts using CSS Grid."
-    },
-    {
       "id": "8306",
       "title": "About Tanstack ",
       "body": "using usequery hook"
