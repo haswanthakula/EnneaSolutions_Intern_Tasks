@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="./pics/todo image logo.png">
+    <title>To-Do List</title>
+</head>
+<body >
+        <div id="left_side">
+            <div id="pro">
+                <img src="./pics/user_pic" width="80" class="img1">
+                <p style="vertical-align: middle; margin-left: 70px; margin-bottom: 50px; font-size: 25px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"><b>Haswanth📝</b></p>
+            </div>
+            <div id="menu">
+                <ul>
+                    <li><i class="bi bi-sun"></i>&nbsp; My Day</li><br>
+                    <li><i class="bi bi-star"></i>&nbsp; Important</li><br>
+                    <li><i class="bi bi-card-checklist"></i>&nbsp; Planned</li><br>
+                    <li><i class="bi bi-archive"></i>&nbsp; Tasks</li><br>
+                </ul>
+            </div>
+        </div>
+    
+            <div id="task_div">
+                <div id="header">
+                    <center>
+                        <h1>"Plan Your Day, Empower Your Life"</h1>
+                    </center>
+                </div>
+                <br>
+                <center>
+                    <input id="inp" type="text" placeholder="Add your task">
+                    <button class="add_button" onclick="add_butt()"><i class="bi bi-plus-lg"></i></button> <br>
+                </center>
+                    <div id="html_div"></div>
+                </div>
+        </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

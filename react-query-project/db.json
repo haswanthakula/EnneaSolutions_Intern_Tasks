@@ -1,0 +1,14 @@
+{
+  "posts": [
+    {
+      "id": "8306",
+      "title": "About Tanstack ",
+      "body": "using usequery hook"
+    },
+    {
+      "id": "e7e2",
+      "title": "Mutation Explore",
+      "body": "Adding, Deleting and so on..."
+    }
+  ]
+}

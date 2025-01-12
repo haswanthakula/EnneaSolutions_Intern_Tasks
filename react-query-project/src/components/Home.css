@@ -1,0 +1,43 @@
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /*Title */
+  .page-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  
+  /* Section*/
+  .section-title {
+    font-size: 2rem;
+    color: #007BFF;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .point-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .point-list li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  
+  /* Section Container */
+  .content-section {
+    margin-bottom: 40px;
+  }
+  

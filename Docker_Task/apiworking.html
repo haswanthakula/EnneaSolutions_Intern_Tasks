@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Working</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="na">
+    <div id="n1">
+      <h1>&nbsp; Ennea Solutions</h1>
+    </div>
+    <div id="n2">
+      <button id="b">
+        <a href="home.html">Home</a>
+      </button>&nbsp;
+      <button id="b">
+        <a href="contact.html">Contact</a>
+      </button>&nbsp;
+      <button id="b" onclick="btn()"> <a href="index.html">Logout</a></button>&nbsp; 
+
+    </div>
+  </div>
+
+  <br><br>
+<center>
+  <h3>In this Project we are using the "Dummy JSON" API's to showcase you how we fetching data using JavaScript</h3>
+</center>
+
+
+    <div id="Main">
+
+        <div id="R">
+          <h1>Recipes</h1>
+          <button id="but" onclick="fetchRecipes()">Fetch Recipes</button>
+          <div id="recipes"></div>
+        </div>
+        
+      
+        <div id="P">
+          <h1>Products</h1>
+          <button id="but" onclick="fetchProducts()">Fetch Products</button>
+          <div id="products"></div>
+        </div>
+
+        <div id="U">
+          <h1>Users</h1>
+          <button id="but" onclick="fetchUsers()">Fetch Users</button>
+          <div id="users"></div>
+        </div>
+        
+     
+    
+      </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
