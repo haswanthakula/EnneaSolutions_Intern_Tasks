@@ -1,0 +1,116 @@
+{
+  "orders": [
+    {
+      "id": "c18b",
+      "customer": {
+        "name": "V S S D PHANI HASWANTH AKULA",
+        "email": "akulahaswanth@gmail.com",
+        "street": "4-3-100, YSR Gardens",
+        "postal-code": "533450",
+        "city": "Pithapuram"
+      },
+      "items": [
+        {
+          "id": "m2",
+          "name": "Margherita Pizza",
+          "price": "12.99",
+          "description": "A classic pizza with fresh mozzarella, tomatoes, and basil on a thin and crispy crust.",
+          "image": "images/margherita-pizza.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "m1",
+          "name": "Mac & Cheese",
+          "price": "8.99",
+          "description": "Creamy cheddar cheese mixed with perfectly cooked macaroni, topped with crispy breadcrumbs. A classic comfort food.",
+          "image": "images/mac-and-cheese.jpg",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 21.98,
+      "date": "2024-12-28T09:44:34.157Z"
+    },
+    {
+      "id": "e2c8",
+      "customer": {
+        "name": "V S S D PHANI HASWANTH AKULA",
+        "email": "akulahaswanth@gmail.com",
+        "street": "4-3-100, YSR Gardens",
+        "postal-code": "533450",
+        "city": "Pithapuram"
+      },
+      "items": [
+        {
+          "id": "m1",
+          "name": "Mac & Cheese",
+          "price": "8.99",
+          "description": "Creamy cheddar cheese mixed with perfectly cooked macaroni, topped with crispy breadcrumbs. A classic comfort food.",
+          "image": "images/mac-and-cheese.jpg",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 8.99,
+      "date": "2024-12-28T09:46:27.953Z"
+    },
+    {
+      "id": "6cb1",
+      "customer": {
+        "name": "V S S D PHANI HASWANTH AKULA",
+        "email": "akulahaswanth@gmail.com",
+        "street": "4-3-100, YSR Gardens",
+        "postal-code": "533450",
+        "city": "Pithapuram"
+      },
+      "items": [
+        {
+          "id": "m2",
+          "name": "Margherita Pizza",
+          "price": "12.99",
+          "description": "A classic pizza with fresh mozzarella, tomatoes, and basil on a thin and crispy crust.",
+          "image": "images/margherita-pizza.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "m3",
+          "name": "Caesar Salad",
+          "price": "7.99",
+          "description": "Romaine lettuce tossed in Caesar dressing, topped with croutons and parmesan shavings.",
+          "image": "images/caesar-salad.jpg",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 20.98,
+      "date": "2024-12-28T09:49:10.841Z"
+    },
+    {
+      "id": "3b99",
+      "customer": {
+        "name": "V S S D PHANI HASWANTH AKULA",
+        "email": "akulahaswanth@gmail.com",
+        "street": "4-3-100, YSR Gardens",
+        "postal-code": "533450",
+        "city": "Pithapuram"
+      },
+      "items": [
+        {
+          "id": "m2",
+          "name": "Margherita Pizza",
+          "price": "12.99",
+          "description": "A classic pizza with fresh mozzarella, tomatoes, and basil on a thin and crispy crust.",
+          "image": "images/margherita-pizza.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "m3",
+          "name": "Caesar Salad",
+          "price": "7.99",
+          "description": "Romaine lettuce tossed in Caesar dressing, topped with croutons and parmesan shavings.",
+          "image": "images/caesar-salad.jpg",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 20.98,
+      "date": "2024-12-28T09:50:13.179Z"
+    }
+  ]
+}
