@@ -1,0 +1,31 @@
+.App {
+  text-align: center;
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+.ant-layout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: #fff;
+}
+
+.ant-card {
+  margin-bottom: 16px;
+}
+
+.ant-card-cover img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.ant-table-cell img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
