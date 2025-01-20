@@ -1,0 +1,162 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url(https://assets.dummyjson.com/public/img/hero-image.svg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-size: cover;
+
+
+  #na{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+  }
+
+  #n1{
+    float: left;
+  }
+
+  #n2{
+    display: flex;
+    color: black;
+    float: right;
+    text-decoration: none;
+  }
+
+
+ #log{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 80px;
+  padding: 20px;
+ }
+  
+
+  .login-container input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 50px;
+
+  }
+  
+  .login-container button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 30px;
+  }
+  
+
+#cont{
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  text-align: left;
+
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  border-radius: 20px;
+}
+
+#but{
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+#but:hover {
+  background-color: #45a049;
+}
+
+
+  
+  #Main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  #R{
+    margin: 20px;
+    padding: 20px;
+    width: 300px;
+    height: 400px;
+    overflow-y:scroll;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+  } 
+
+  #P{
+    margin: 20px;
+    padding: 20px;
+    width: 300px;
+    height: 400px;
+    overflow-y: scroll;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+  }
+
+  #U{
+    margin: 20px;
+    padding: 20px;
+    width: 300px;
+    height: 400px;
+    overflow-y:scroll;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+  } 
+
+
+  #hom{
+    font-size: 17.5px;
+    width: 700px;
+    text-align: center;
+  }
+
+  #b{
+ 
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    border-radius: 50px;
+    text-align: center;
+  }
+  
+  #b:hover {
+    background-color:greenyellow;
+    color: black;
+  }
