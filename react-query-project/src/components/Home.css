@@ -1,0 +1,273 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*Title */
+.page-title {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    color: #333;
+    font-size: 2.5rem;
+    margin: 0;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Section*/
+.section-title {
+    font-size: 2rem;
+    color: #007BFF;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.point-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.point-list li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Section Container */
+.content-section {
+    margin-bottom: 40px;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.carousel-slide {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    width: 100%;
+}
+
+.carousel-slide.active {
+    display: block;
+    opacity: 1;
+}
+
+.slide-content {
+    display: flex;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+.slide-text {
+    flex: 1;
+    padding: 30px;
+    background-color: #ffffff;
+}
+
+.slide-text h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.slide-text p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.slide-text ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #444;
+}
+
+.slide-image {
+    flex: 1;
+    max-width: 50%;
+}
+
+.slide-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #333;
+}
+
+.home-container-full {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-container-full {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-slide-full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease, visibility 1s;
+}
+
+.carousel-slide-full.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide-content-full {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: brightness(0.7);
+}
+
+.slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(200,200,200,0.2));
+    z-index: 2;
+}
+
+.slide-text-full {
+    position: relative;
+    z-index: 3;
+    color: #333;
+    max-width: 800px;
+    text-align: center;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.slide-text-full h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.slide-text-full p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #34495e;
+}
+
+.slide-text-full ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.slide-text-full ul li {
+    background: #ecf0f1;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #2c3e50;
+    border: 1px solid #bdc3c7;
+    transition: background-color 0.3s ease;
+}
+
+.slide-text-full ul li:hover {
+    background: #d5dbdb;
+}
+
+.carousel-dots-full {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 4;
+}
+
+.dot-full {
+    width: 15px;
+    height: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot-full.active {
+    background-color: #2c3e50;
+}
