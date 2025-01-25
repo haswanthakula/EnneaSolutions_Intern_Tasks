@@ -10,6 +10,7 @@ export default function EditTask() {
   const [task, setTask] = useState({
     taskName: "",
     description: "",
+    completed: false
   });
 
   const [tasks, setTasks] = useState([]);
@@ -18,8 +19,19 @@ export default function EditTask() {
   const { taskName, description } = task;
 
   useEffect(() => {
+    loadTask();
     loadTasks();
   }, []);
+
+  const loadTask = async () => {
+    try {
+      const result = await axios.get(`http://localhost:8080/task/${id}`);
+      setTask(result.data);
+    } catch (error) {
+      console.error("Error loading task", error);
+      navigate("/");
+    }
+  };
 
   const loadTasks = async () => {
     try {
@@ -100,12 +112,14 @@ export default function EditTask() {
                 onChange={(e) => onInputChange(e)}
               />
               {errors.taskName && (
-                <div className="invalid-feedback">{errors.taskName}</div>
+                <div className="invalid-feedback">
+                  {errors.taskName}
+                </div>
               )}
             </div>
             <div className="mb-3">
               <label htmlFor="Description" className="form-label">
-                Task Description
+                Description
               </label>
               <textarea
                 className={`form-control ${errors.description ? 'is-invalid' : ''}`}
@@ -113,9 +127,11 @@ export default function EditTask() {
                 name="description"
                 value={description}
                 onChange={(e) => onInputChange(e)}
-              ></textarea>
+              />
               {errors.description && (
-                <div className="invalid-feedback">{errors.description}</div>
+                <div className="invalid-feedback">
+                  {errors.description}
+                </div>
               )}
             </div>
             <div className="text-center">

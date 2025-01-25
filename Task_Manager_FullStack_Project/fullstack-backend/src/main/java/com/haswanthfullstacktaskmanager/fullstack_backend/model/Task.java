@@ -1,6 +1,5 @@
 package com.haswanthfullstacktaskmanager.fullstack_backend.model;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -15,6 +14,8 @@ public class Task {
     private String taskName;
 
     private String description;
+
+    private boolean completed;
 
     public Long getId() {
         return id;
@@ -38,5 +39,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }
