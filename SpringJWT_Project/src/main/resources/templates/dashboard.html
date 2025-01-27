@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div th:replace="layout :: nav"></div>
+    
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col">
+                <h2>Student Dashboard</h2>
+            </div>
+            <div class="col text-end">
+                <button class="btn btn-primary" onclick="logout()">Logout</button>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Student List</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="errorAlert" class="alert alert-danger" style="display: none;"></div>
+                        <div id="successAlert" class="alert alert-success" style="display: none;"></div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="studentTableBody">
+                                    <!-- Students will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showError(message) {
+            const errorAlert = document.getElementById('errorAlert');
+            errorAlert.textContent = message;
+            errorAlert.style.display = 'block';
+            setTimeout(() => errorAlert.style.display = 'none', 5000);
+        }
+
+        function showSuccess(message) {
+            const successAlert = document.getElementById('successAlert');
+            successAlert.textContent = message;
+            successAlert.style.display = 'block';
+            setTimeout(() => successAlert.style.display = 'none', 5000);
+        }
+
+        function loadStudents() {
+            const token = localStorage.getItem('jwt_token');
+            fetch('/api/students', {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        window.location.href = '/login';
+                        throw new Error('Please login again');
+                    }
+                    throw new Error('Failed to load students');
+                }
+                return response.json();
+            })
+            .then(students => {
+                const tbody = document.getElementById('studentTableBody');
+                tbody.innerHTML = '';
+                students.forEach(student => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${student.id}</td>
+                            <td>${student.studentName}</td>
+                            <td>${student.studentEmail}</td>
+                            <td>${student.studentAddress}</td>
+                        </tr>
+                    `;
+                });
+            })
+            .catch(error => {
+                showError(error.message);
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem('jwt_token');
+            window.location.href = '/login';
+        }
+
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('jwt_token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+            loadStudents();
+        });
+    </script>
+</body>
+</html>
