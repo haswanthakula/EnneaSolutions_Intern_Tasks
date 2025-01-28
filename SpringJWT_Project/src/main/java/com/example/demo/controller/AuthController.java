@@ -2,10 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.JwtResponse;
 import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.RegistrationRequestDTO;
+import com.example.demo.dto.SuccessResponseDTO;
 import com.example.demo.entity.Student;
 import com.example.demo.repo.StudentRepo;
 import com.example.demo.security.JwtUtils;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +28,8 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class AuthController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -39,6 +45,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
+            logger.info("Login attempt for email: {}", loginRequest.getEmail());
+
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
@@ -48,6 +56,8 @@ public class AuthController {
             Student student = studentRepo.findByStudentEmail(loginRequest.getEmail())
                     .orElseThrow(() -> new RuntimeException("Error: Student not found."));
 
+            logger.info("Login successful for email: {}", loginRequest.getEmail());
+
             Map<String, Object> response = new HashMap<>();
             response.put("token", jwt);
             response.put("id", student.getId());
@@ -56,10 +66,12 @@ public class AuthController {
 
             return ResponseEntity.ok(response);
         } catch (BadCredentialsException e) {
+            logger.warn("Login failed for email: {}", loginRequest.getEmail());
             Map<String, String> response = new HashMap<>();
             response.put("message", "Invalid email or password");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         } catch (Exception e) {
+            logger.error("Login error for email: {}", loginRequest.getEmail(), e);
             Map<String, String> response = new HashMap<>();
             response.put("message", "An error occurred: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
@@ -67,24 +79,45 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody Student student) {
+    public ResponseEntity<SuccessResponseDTO> registerUser(@Valid @RequestBody RegistrationRequestDTO registrationRequest) {
         try {
-            if (studentRepo.existsByStudentEmail(student.getStudentEmail())) {
-                Map<String, String> response = new HashMap<>();
-                response.put("message", "Email is already in use!");
-                return ResponseEntity.badRequest().body(response);
+            // Validate password confirmation
+            if (!registrationRequest.getPassword().equals(registrationRequest.getConfirmPassword())) {
+                throw new IllegalArgumentException("Passwords do not match");
             }
 
-            student.setPassword(passwordEncoder.encode(student.getPassword()));
+            if (studentRepo.existsByStudentEmail(registrationRequest.getStudentEmail())) {
+                throw new IllegalArgumentException("Email is already in use!");
+            }
+
+            // Create new student
+            Student student = new Student();
+            student.setStudentName(registrationRequest.getStudentName());
+            student.setStudentEmail(registrationRequest.getStudentEmail());
+            student.setStudentAddress(registrationRequest.getStudentAddress());
+            student.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+            student.setEnabled(true);
+
             Student savedStudent = studentRepo.save(student);
 
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Student registered successfully!");
+            SuccessResponseDTO response = new SuccessResponseDTO(
+                "Student registered successfully!", 
+                savedStudent
+            );
+
             return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            SuccessResponseDTO errorResponse = new SuccessResponseDTO(
+                e.getMessage(), 
+                null
+            );
+            return ResponseEntity.badRequest().body(errorResponse);
         } catch (Exception e) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "An error occurred: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            SuccessResponseDTO errorResponse = new SuccessResponseDTO(
+                "Registration failed: " + e.getMessage(), 
+                null
+            );
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 }

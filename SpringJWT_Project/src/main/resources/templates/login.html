@@ -86,12 +86,17 @@
                 }
 
                 if (response.ok && jsonData.token) {
+                    console.log('Login successful:', jsonData);
                     localStorage.setItem('jwt_token', jsonData.token);
                     showSuccess('Login successful! Redirecting...');
                     
                     // Force a small delay before redirect
-                    setTimeout(redirectToDashboard, 1500);
+                    setTimeout(() => {
+                        console.log('Redirecting to dashboard...');
+                        window.location.replace('/dashboard');
+                    }, 1500);
                 } else {
+                    console.error('Login failed:', jsonData);
                     const errorMessage = jsonData.message || 'Invalid email or password';
                     showError(errorMessage);
                     loginButton.disabled = false;

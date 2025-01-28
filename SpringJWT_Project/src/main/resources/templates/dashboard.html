@@ -33,10 +33,10 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Address</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="studentTableBody">
-                                    <!-- Students will be loaded here -->
                                 </tbody>
                             </table>
                         </div>
@@ -47,6 +47,8 @@
     </div>
 
     <script>
+        let isRedirecting = false;
+
         function showError(message) {
             const errorAlert = document.getElementById('errorAlert');
             errorAlert.textContent = message;
@@ -61,7 +63,25 @@
             setTimeout(() => successAlert.style.display = 'none', 5000);
         }
 
+        function safeRedirect(url) {
+            if (!isRedirecting) {
+                isRedirecting = true;
+                window.location.href = url;
+            }
+        }
+
+        function checkAuthentication() {
+            const token = localStorage.getItem('jwt_token');
+            if (!token) {
+                safeRedirect('/login');
+                return false;
+            }
+            return true;
+        }
+
         function loadStudents() {
+            if (!checkAuthentication()) return;
+
             const token = localStorage.getItem('jwt_token');
             fetch('/api/students', {
                 headers: {
@@ -71,7 +91,8 @@
             .then(response => {
                 if (!response.ok) {
                     if (response.status === 401) {
-                        window.location.href = '/login';
+                        localStorage.removeItem('jwt_token');
+                        safeRedirect('/login');
                         throw new Error('Please login again');
                     }
                     throw new Error('Failed to load students');
@@ -87,29 +108,67 @@
                             <td>${student.id}</td>
                             <td>${student.studentName}</td>
                             <td>${student.studentEmail}</td>
-                            <td>${student.studentAddress}</td>
+                            <td>${student.studentAddress || 'N/A'}</td>
+                            <td>
+                                <button onclick="deleteStudent(${student.id})" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
                         </tr>
                     `;
                 });
             })
             .catch(error => {
+                console.error('Student load error:', error);
                 showError(error.message);
             });
         }
 
+        function deleteStudent(id) {
+            if (!checkAuthentication()) return;
+
+            const token = localStorage.getItem('jwt_token');
+            if (confirm('Are you sure you want to delete this student?')) {
+                fetch(`/api/students/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            localStorage.removeItem('jwt_token');
+                            safeRedirect('/login');
+                            throw new Error('Please login again');
+                        }
+                        return response.json().then(errorData => {
+                            throw new Error(errorData.message || 'Failed to delete student');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Delete response:', data);
+                    showSuccess('Student deleted successfully');
+                    loadStudents(); // Reload the student list
+                })
+                .catch(error => {
+                    console.error('Delete error:', error);
+                    showError(error.message || 'An error occurred while deleting the student');
+                });
+            }
+        }
+
         function logout() {
             localStorage.removeItem('jwt_token');
-            window.location.href = '/login';
+            safeRedirect('/login');
         }
 
         // Check authentication on page load
         document.addEventListener('DOMContentLoaded', function() {
-            const token = localStorage.getItem('jwt_token');
-            if (!token) {
-                window.location.href = '/login';
-                return;
+            if (checkAuthentication()) {
+                loadStudents();
             }
-            loadStudents();
         });
     </script>
 </body>

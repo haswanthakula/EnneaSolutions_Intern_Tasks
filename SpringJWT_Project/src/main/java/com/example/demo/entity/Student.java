@@ -14,7 +14,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @NotBlank(message = "Name is required")
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
@@ -34,23 +34,15 @@ public class Student {
 
     private boolean enabled = true;
 
-    public Student(long id, String studentAddress, String studentEmail, String studentName, String password) {
-        this.id = id;
-        this.studentAddress = studentAddress;
-        this.studentEmail = studentEmail;
-        this.studentName = studentName;
-        this.password = password;
-    }
-
     public Student() {
         super();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
