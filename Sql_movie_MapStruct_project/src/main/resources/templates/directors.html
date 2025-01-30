@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Directors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Directors</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Director ID</th>
+                <th>Name</th>
+                <th>Awards</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="director : ${directors}">
+                <td th:text="${director.directorId}"></td>
+                <td th:text="${director.name}"></td>
+                <td th:text="${director.awards}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="back-link">Back to Database Home</a>
+</body>
+</html>
