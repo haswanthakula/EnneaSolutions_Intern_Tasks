@@ -4,6 +4,7 @@ import com.movie.entity.BoxOffice;
 import com.movie.repository.BoxOfficeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,9 @@ import java.util.List;
 public class BoxOfficeService {
     private final BoxOfficeRepository boxOfficeRepository;
 
+    @Value("${app.pagination.page-size:5}")
+    private int pageSize;
+
     @Transactional(readOnly = true)
     public List<BoxOffice> getAllBoxOfficeRecords() {
         try {
@@ -31,22 +35,54 @@ public class BoxOfficeService {
         }
     }
 
+    @Transactional(readOnly = true)
     public Double getAverageBudget() {
-        return boxOfficeRepository.findAll().stream()
-            .mapToDouble(BoxOffice::getBudget)
-            .average()
-            .orElse(0.0);
+        try {
+            log.info("Calculating average budget");
+            Double avgBudget = boxOfficeRepository.findAverageBudget();
+            log.info("Average budget calculated: {}", avgBudget);
+            return avgBudget;
+        } catch (Exception e) {
+            log.error("Error calculating average budget", e);
+            throw new RuntimeException("Failed to calculate average budget", e);
+        }
     }
 
     @Transactional(readOnly = true)
     public Page<BoxOffice> getAllBoxOfficeRecordsPaginated(int page) {
-        Pageable pageable = PageRequest.of(page, 5);
-        return boxOfficeRepository.findAll(pageable);
+        try {
+            if (page < 0) {
+                throw new IllegalArgumentException("Page index must not be less than zero!");
+            }
+            log.info("Fetching box office records for page: {}", page);
+            Pageable pageable = PageRequest.of(page, pageSize);
+            Page<BoxOffice> records = boxOfficeRepository.findAll(pageable);
+            log.info("Retrieved {} records for page {}", records.getNumberOfElements(), page);
+            return records;
+        } catch (Exception e) {
+            log.error("Error retrieving paginated box office records for page: {}", page, e);
+            throw new RuntimeException("Failed to retrieve paginated box office records", e);
+        }
     }
 
     @Transactional(readOnly = true)
     public Page<BoxOffice> getBoxOfficeRecordsByBudgetPaginated(Double budgetThreshold, int page) {
-        Pageable pageable = PageRequest.of(page, 5);
-        return boxOfficeRepository.findByBudgetGreaterThan(budgetThreshold, pageable);
+        try {
+            if (page < 0) {
+                throw new IllegalArgumentException("Page index must not be less than zero!");
+            }
+            if (budgetThreshold == null) {
+                throw new IllegalArgumentException("Budget threshold must not be null!");
+            }
+            log.info("Fetching box office records with budget > {} for page: {}", budgetThreshold, page);
+            Pageable pageable = PageRequest.of(page, pageSize);
+            Page<BoxOffice> records = boxOfficeRepository.findByBudgetGreaterThan(budgetThreshold, pageable);
+            log.info("Retrieved {} records for page {}", records.getNumberOfElements(), page);
+            return records;
+        } catch (Exception e) {
+            log.error("Error retrieving filtered box office records for page: {} and budget threshold: {}", 
+                page, budgetThreshold, e);
+            throw new RuntimeException("Failed to retrieve filtered box office records", e);
+        }
     }
 }

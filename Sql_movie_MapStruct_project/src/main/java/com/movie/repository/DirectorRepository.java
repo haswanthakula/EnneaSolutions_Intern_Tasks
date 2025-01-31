@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DirectorRepository extends JpaRepository<Director, Long> {
     Page<Director> findByNameContaining(String name, Pageable pageable);
+    Page<Director> findByNameContainingIgnoreCase(String name, Pageable pageable);
 }
