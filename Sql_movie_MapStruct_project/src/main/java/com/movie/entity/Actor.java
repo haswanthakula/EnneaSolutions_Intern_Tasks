@@ -8,6 +8,8 @@ import lombok.ToString;
 
 import java.util.List;
 
+import com.movie.entity.MovieCast;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,4 +30,8 @@ public class Actor {
     @ManyToMany(mappedBy = "actors")
     @ToString.Exclude
     private List<Movie> movies;
+
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<MovieCast> movieCasts;
 }
