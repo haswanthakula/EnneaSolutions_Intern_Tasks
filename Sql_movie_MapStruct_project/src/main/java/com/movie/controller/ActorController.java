@@ -5,10 +5,12 @@ import com.movie.entity.Actor;
 import com.movie.mapper.ActorMapper;
 import com.movie.service.ActorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,6 +26,20 @@ public class ActorController {
         List<ActorDto> actorDtos = actors.stream()
                 .map(actorMapper::toDto)
                 .collect(Collectors.toList());
+        return ResponseEntity.ok(actorDtos);
+    }
+
+    @GetMapping("/select-columns")
+    public ResponseEntity<List<Map<String, Object>>> getActorNameAndGender() {
+        List<Map<String, Object>> actorColumns = actorService.getActorNameAndGender();
+        return ResponseEntity.ok(actorColumns);
+    }
+
+    @GetMapping("/paginated")
+    public ResponseEntity<Page<ActorDto>> getAllActorsPaginated(
+            @RequestParam(defaultValue = "0") int page) {
+        Page<Actor> actors = actorService.getAllActorsPaginated(page);
+        Page<ActorDto> actorDtos = actors.map(actorMapper::toDto);
         return ResponseEntity.ok(actorDtos);
     }
 }

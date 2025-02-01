@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.List;
+import com.movie.entity.MovieCast;
 
 @Data
 @NoArgsConstructor
@@ -43,4 +44,8 @@ public class Movie {
     @JoinColumn(name = "movie_id")
     @ToString.Exclude
     private BoxOffice boxOffice;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<MovieCast> movieCasts;
 }
